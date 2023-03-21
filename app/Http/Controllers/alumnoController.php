@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\m_alumno;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http\Models\Alumno;
 
 class alumnoController extends Controller
@@ -12,17 +14,31 @@ class alumnoController extends Controller
         return view('alumno');
     }
     public function lista(){
-       // $alumno = m_alumno::all();
+       //Primer Try-Catch
+       try{
         $alumnos = m_alumno::join('materia','alumno.id_materia','=','materia.id')
-       -> select('alumno.*', 'materia.nombre as nombre_materia')
+        -> select('alumno.*', 'materia.nombre as nombre_materia')
         ->get(); 
-        return $alumnos;
+         return $alumnos;
+       }catch(Exception $e){
+           Log::error('Metodo Lista clase AlumnoController->' .$e->getMessage());
+       }
+       
     }
     public function alumno(Request $request){
-        $alumno = m_alumno::find($request->id);
-        return $alumno;
+        //Segundo Try-Catch
+        try{
+            $alumno = m_alumno::find($request->id);
+            return $alumno;
+        }catch(Exception $e){
+            Log::error('Metodo Alumno clase AlumnoController->' .$e->getMessage());
+        
+        }
+
     }
+
     public function guardar(Request $request){
+    
         if($request->id == 0){
             $alumno = new m_alumno();
         }
@@ -30,25 +46,32 @@ class alumnoController extends Controller
             $alumno = m_alumno::find($request->id);
         }
 
-        $alumno->nombre = $request->nombre;
-        $alumno->apetpat = $request->apetpat;
-        $alumno->apetmat = $request->apetmat;
-        $alumno->matricula = $request->matricula;
-        $alumno->edad = $request->edad;
-        $alumno->sexo = $request->sexo;
+       //Tercer Try-Catch
+        try{
+            $alumno->nombre = $request->nombre;
+            $alumno->apetpat = $request->apetpat;
+            $alumno->apetmat = $request->apetmat;
+            $alumno->matricula = $request->matricula;
+            $alumno->edad = $request->edad;
+            $alumno->sexo = $request->sexo;
 
-        $alumno->id_materia = $request->id_materia;
-
-        $alumno->save();
-
-        return $alumno;
+            $alumno->save();
+            return $alumno;
+        }catch(Exception $e){
+            Log::error('Metodo Guardar clase AlumnoController->' .$e->getMessage());
+        }
         
     }
     public function borrar(Request $request){
-
-        $alumno = m_alumno::find($request->id);
-        $alumno ->delete();
-        return "OK";
+        //Cuarto Try-Catch
+        try{
+            $alumno = m_alumno::find($request->id);
+            $alumno ->delete();
+            return "OK";
+        }catch(Exception $e){
+            Log::error('Metodo Borrar clase AlumnoController->' .$e->getMessage());
+        
+        }
     }
 
 }
