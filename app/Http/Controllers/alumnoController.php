@@ -16,9 +16,13 @@ class alumnoController extends Controller
     public function lista(){
        //Primer Try-Catch
        try{
-        $alumnos = m_alumno::join('materia','alumno.id_materia','=','materia.id')
+        /**$alumnos = m_alumno::join('materia','alumno.id_materia','=','materia.id')
         -> select('alumno.*', 'materia.nombre as nombre_materia')
-        ->get(); 
+        ->get();*/
+            $alumnos = m_alumno::join('materia', 'alumno.id_materia', '=', 'materia.id') &&
+            $alumnos = m_alumno::join('grupos', 'alumno.id_grupo', '=', 'grupos.id')
+            ->select('alumno.*', 'materia.nombre as nombre_materia, grupos.grupo as nombre_grupo')
+            ->get();
          return $alumnos;
        }catch(Exception $e){
            Log::error('Metodo Lista clase AlumnoController->' .$e->getMessage());
@@ -54,6 +58,8 @@ class alumnoController extends Controller
             $alumno->matricula = $request->matricula;
             $alumno->edad = $request->edad;
             $alumno->sexo = $request->sexo;
+            $alumno->id_materia = $request->id_materia;
+            $alumno->id_grupo = $request->id_grupo;
 
             $alumno->save();
             return $alumno;

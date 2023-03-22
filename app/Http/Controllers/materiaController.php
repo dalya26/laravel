@@ -46,8 +46,6 @@ class materiaController extends Controller
         try{
         
             $materia->nombre = $request->nombre;
-            $materia->profesor = $request->profesor;
-            $materia->horario = $request->horario;
             $materia->save();
             return $materia;
         }catch(Exception $e){

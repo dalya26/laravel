@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        
-        Schema::table('alumno', function ( Blueprint $table){
-            $table->bigInteger('id_materia')->nullable();
-
-            $table->foreign('id_materia')->references('id')->on('materia');
+        Schema::table('alumno', function (Blueprint $table) {
+            $table->bigInteger('id_grupo')->nullable();
+            $table->foreign('id_grupo')->references('id')->on('grupos');
         });
     }
 
@@ -28,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('alumno', function (Blueprint $table) {
+            //
+        });
     }
 };
