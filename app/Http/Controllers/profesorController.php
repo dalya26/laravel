@@ -50,8 +50,6 @@ class profesorController extends Controller
             $profesor->edad = $request->edad;
             $profesor->sexo = $request->sexo;
             $profesor->cedula = $request->cedula;
-            $profesor->asignatura = $request->asignatura;
-            $profesor->habilidades = $request->habilidades;
     
             $profesor->id_materia = $request->id_materia;
     

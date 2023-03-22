@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::create('materia', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('profesor');
-            $table->string('horario');
             $table->timestamps();
         });
     }
