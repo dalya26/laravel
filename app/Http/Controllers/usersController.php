@@ -13,10 +13,10 @@ class usersController extends Controller
         
     }
     public function lista(){
-        //$user = m_user::all();
-        $user = m_user::join('rol', 'users.id_rol', '=', 'rol.id')
-        ->select('users.*', 'rol.roll as rol_rol')
-        ->get();
+        $user = m_user::all();
+       /**$user = m_user::join('roles', 'users.id_rol', '=', 'roles.id')
+        ->select('users.*', 'roles.name as rol_rol')
+        ->get();*/
         return $user;
     }
     public function users(Request $request){
@@ -33,7 +33,7 @@ class usersController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->input('password'));
-        $user->id_rol = $request->id_rol;
+       // $user->id_rol = $request->id_rol;
 
         $user->save();
         return $user;
