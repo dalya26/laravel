@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\alumnoController;
 use App\Http\Controllers\materiaController;
 use App\Http\Controllers\profesorController;
+use App\Http\Controllers\paselista_controller;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -55,3 +56,6 @@ Route::post('login', function(Request $request){
     }
 });
 
+Route::post('/paselista', [paselista_controller::class, 'paselista']);
+Route::post('/guardarpaselista', [paselista_controller::class, 'guardar']);
+Route::post('/paselista/borrar', [paselista_controller::class, 'borrar']);
