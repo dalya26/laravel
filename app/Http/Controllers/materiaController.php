@@ -71,6 +71,5 @@ class materiaController extends Controller
         }catch(Exception $e){
             Log::error('Metodo Combo clase MateriaController->' .$e->getMessage());
         }
-        
     }
 }
