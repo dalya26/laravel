@@ -6,8 +6,11 @@ use App\Http\Controllers\alumnoController;
 use App\Http\Controllers\grupoController;
 use App\Http\Controllers\materiaController;
 use App\Http\Controllers\profesorController;
+
+use App\Http\Controllers\paselista_controller;
 use App\Http\Controllers\rolController;
 use App\Http\Controllers\usersController;
+
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -80,9 +83,14 @@ Route::post('login', function (Request $request) {
     }
 });
 
+
+Route::post('/paselista', [paselista_controller::class, 'paselista']);
+Route::post('/guardarpaselista', [paselista_controller::class, 'guardar']);
+
 Route::post('/registeruser', [usersController::class, 'registeruser']);
 Route::get('/user', [usersController::class, 'lista']);
 Route::get('/users', [usersController::class, 'users']);
 //Route::post('/login', [usersController::class, 'login']);
 Route::post('/user/borrar', [usersController::class, 'borrar']);
+
 
