@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\m_alumno;
-use App\Models\m_pase_lista;
+use App\Models\m_plista;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -29,7 +29,7 @@ class paselista_controller extends Controller
     public function lista(Request $request){
 
     try{
-        $pase_lista = m_pase_lista::find($request->id);
+        $pase_lista = m_plista::find($request->id);
         return $pase_lista;
     }catch(Exception $e){
         Log::error('Metodo paselista clase paslista_controller->' .$e->getMessage());
@@ -39,11 +39,11 @@ class paselista_controller extends Controller
     //Tercer Try-Catch
     public function guardar (Request $request){
         try{
-            $verficarAsistencia = m_pase_lista::where('id_alumno',$request->id_alumno)->where('fecha', now())->first(); 
+            $verficarAsistencia = m_plista::where('id_alumno',$request->id_alumno)->where('fecha', now())->first(); 
             if ($verficarAsistencia) {
                 return response()->json(['mensage'=>'Ya se encuentra registrada la asistencia']);
             }
-            $pase_lista = new m_pase_lista();
+            $pase_lista = new m_plista();
     
             $pase_lista->fecha = now();
             $pase_lista->id_alumno = $request->id_alumno;

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 use App\Models\m_materia;
 use Exception;
-use Illuminate\Support\Facades\Log;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -13,9 +11,8 @@ class materiaController extends Controller
     public function index(){
         return view('materia');
     }
-
     public function lista(){
-    //Primer Try-Catch
+        #Primer try
         try{
             $materia = m_materia::all();
             return $materia;
@@ -23,12 +20,9 @@ class materiaController extends Controller
             Log::error('Metodo Lista clase MateriaController->' .$e->getMessage());
         }
         
-            Log::error('Metodo Borrar clase MateriaController->' .$e->getMessage());
-        }
     }
-
     public function materia(Request $request){
-    //Segundo Try-Catch
+        #Segundo try
         try{
             $materia = m_materia::find($request->id);
             return $materia;
@@ -36,11 +30,7 @@ class materiaController extends Controller
             Log::error('Metodo materia clase MateriaController->' .$e->getMessage());
         }
         
-            Log::error('Metodo Borrar clase MateriaController->' .$e->getMessage());
-        }
-
     }
-    
     public function guardar(Request $request){
         #Tercer try
         try{
@@ -63,25 +53,7 @@ class materiaController extends Controller
         
     }
     public function borrar(Request $request){
-        
-        else {
-            $materia = m_materia::find($request->id);
-        }
-
-    //Tercer Try-Catch
-        try{
-        
-            $materia->nombre = $request->nombre;
-            $materia->save();
-            return $materia;
-        }catch(Exception $e){
-            Log::error('Metodo Guardar clase MateriaController->' .$e->getMessage());
-        }
-        
-    }
-    public function borrar(Request $request){
-    //Cuarto Try-Catch
-
+        #Cuarto try
         try{
             $materia = m_materia::find($request->id);
             $materia ->delete();
@@ -89,25 +61,15 @@ class materiaController extends Controller
         }catch(Exception $e){
             Log::error('Metodo Borrar clase MateriaController->' .$e->getMessage());
 
-
         }
     }
     public function combo(){
-        
-        }
-    }
-    public function combo(){
-    //Quinto Try-Catch
-
+        #Quinto try
         try{
             $materia = m_materia::select('nombre as name', 'id as code')->get();
             return $materia;
         }catch(Exception $e){
-
             Log::error('Metodo Combo clase MateriaController->' .$e->getMessage());
-
-            Log::error('Metodo Borrar clase MateriaController->' .$e->getMessage());
-
         }
     }
 }
