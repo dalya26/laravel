@@ -92,6 +92,9 @@ class testGrupo extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
+<<<<<<< HEAD
+=======
         
+>>>>>>> 6d2c4d7db7e5b864b053fa0cef95826fa668ecc2
     }
 }
