@@ -27,6 +27,7 @@ use App\Http\Controllers\Auth\RegisterController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::get('/alumnos', [alumnoController::class, 'lista'])->name('admin.alumnos');
 Route::get('/alumno', [alumnoController::class, 'alumno'])->name('admin.alumno');
 Route::post('/alumno', [alumnoController::class, 'guardar'])->name('admin.guardar');
@@ -55,17 +56,6 @@ Route::post('/grupo', [grupoController::class, 'guardar'])->name('admin.grupo');
 Route::post('/grupo/borrar', [grupoController::class, 'borrar'])->name('admin.grupo');
 Route::get('/grupo/combo', [grupoController::class, 'combo'])->name('admin.grupo');
 
-/**Route::post('login', function (Request $request) {
-    if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'rol' => $request->rol, 'id_rol' => $request->id_rol])) {
-        $user = Auth::user();
-        $arr = array('acceso' => "Ok", 'error' => "");
-        return json_encode($arr);
-    } else {
-        $arr = array('acceso' => "", 'error' => "No existe el usuario o contraseña");
-        return json_encode($arr);
-    }
-});*/
-
 Route::post('login', function (Request $request) {
     if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'rol' => "Admin"])) {
         $user = Auth::user()->id;
@@ -88,20 +78,15 @@ Route::post('login', function (Request $request) {
     }
 
 })->name('admin.users');
+
 Route::get('/user', [usersController::class, 'lista'])->name('admin.users');
 Route::get('/users', [usersController::class, 'users'])->name('admin.users');
 Route::post('/user/borrar', [usersController::class, 'borrar'])->name('admin.users');
-/**Route::post('/registeruser', [usersController::class, 'registeruser'])->name('admin.users');
-Route::get('/user', [usersController::class, 'lista'])->name('admin.users');
-Route::get('/users', [usersController::class, 'users'])->name('admin.users');
-Route::post('/user/borrar', [usersController::class, 'borrar'])->name('admin.users');*/
+
 
 Route::get('/rol', [rolesController::class, 'lista'])->name('admin.rol');
 Route::get('/role', [rolesController::class, 'roles'])->name('admin.rol');
 Route::get('/rol/combo', [rolesController::class, 'combo'])->name('admin.rol');
-
-});
-
 
 Route::post('/paselista', [paselista_controller::class, 'paselista']);
 Route::post('/guardarpaselista', [paselista_controller::class, 'guardar']);
