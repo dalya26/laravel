@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class m_plista extends Model
 {
-    use HasFactory;
+    protected $table = 'plista';
 }

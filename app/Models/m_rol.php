@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class m_rol extends Model
 {
-    protected $table = 'rol';
+    protected $table = 'roles';
 }
