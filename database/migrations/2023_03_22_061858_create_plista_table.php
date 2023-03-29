@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('materia', function (Blueprint $table) {
+        Schema::create('plista', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('profesor');
-            $table->string('horario');
+            $table->bigInteger('id_alumno');
+            $table->boolean('asistio');
+            $table->date('fecha');
+            $table->foreign('id_alumno')->references('id')->on('alumno');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('materia');
+        Schema::dropIfExists('plista');
     }
 };

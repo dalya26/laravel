@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('matricula');
             $table->string('edad');
             $table->string('sexo');
+            $table->bigInteger('id_materia')->nullable();
+            $table->foreign('id_materia')->references('id')->on('materia');
             $table->timestamps();
         });
     }

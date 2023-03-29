@@ -13,10 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        schema ::table('profesor', function ( Blueprint $table){
+        Schema::create('profesor', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+            $table->string('apetpat');
+            $table->string('apetmat');
+            $table->string('matricula');
+            $table->string('edad');
+            $table->string('sexo');
+            $table->string('cedula');
             $table->bigInteger('id_materia')->nullable();
-
             $table->foreign('id_materia')->references('id')->on('materia');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('profesor');
     }
 };

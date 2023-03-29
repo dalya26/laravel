@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        
-        Schema::table('alumno', function ( Blueprint $table){
-            $table->bigInteger('id_materia')->nullable();
-
-            $table->foreign('id_materia')->references('id')->on('materia');
+        Schema::create('grupos', function (Blueprint $table) {
+            $table->id();
+            $table->string('grupo');
+            $table->timestamps();
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('grupos');
     }
 };

@@ -3,9 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\alumnoController;
+use App\Http\Controllers\grupoController;
 use App\Http\Controllers\materiaController;
 use App\Http\Controllers\profesorController;
+
 use App\Http\Controllers\paselista_controller;
+use App\Http\Controllers\rolController;
+use App\Http\Controllers\usersController;
+
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -44,17 +49,48 @@ Route::post('/materia/borrar', [materiaController::class, 'borrar']);
 
 Route::get('/combo_materias', [materiaController::class, 'combo']);
 
-Route::post('login', function(Request $request){
-    if(Auth::attempt(['email' =>$request-> email, 'password' => $request->password, 'rol' => $request->rol])){
+/**Route::post('login', function (Request $request) {
+    if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
         $user = Auth::user();
-        $arr = array('acceso' =>"Ok", 'error' => "");
+        $arr = array('acceso' => "Ok", 'error' => "");
+        return json_encode($arr);
+    } else {
+        $arr = array('acceso' => "", 'error' => "No existe el usuario o contraseña");
         return json_encode($arr);
     }
-    else{
+});*/
+
+Route::get('/roles', [rolController::class, 'lista']);
+Route::get('/rol', [rolController::class, 'roles']);
+Route::post('/rol', [rolController::class, 'guardar']);
+Route::post('/rol/borrar', [rolController::class, 'borrar']);
+Route::get('/rol/roles', [rolController::class, 'combo']);
+
+Route::get('/grupos', [grupoController::class, 'lista']);
+Route::get('/grupo', [grupoController::class, 'grupos']);
+Route::post('/grupo', [grupoController::class, 'guardar']);
+Route::post('/grupo/borrar', [grupoController::class, 'borrar']);
+Route::get('/grupo/combo', [grupoController::class, 'combo']);
+
+Route::post('login', function (Request $request) {
+    if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        $user = Auth::user();
+        $arr = array('acceso' => "Ok", 'error' => "");
+        return json_encode($arr);
+    } else {
         $arr = array('acceso' => "", 'error' => "No existe el usuario o contraseña");
         return json_encode($arr);
     }
 });
 
+
 Route::post('/paselista', [paselista_controller::class, 'paselista']);
 Route::post('/guardarpaselista', [paselista_controller::class, 'guardar']);
+
+Route::post('/registeruser', [usersController::class, 'registeruser']);
+Route::get('/user', [usersController::class, 'lista']);
+Route::get('/users', [usersController::class, 'users']);
+//Route::post('/login', [usersController::class, 'login']);
+Route::post('/user/borrar', [usersController::class, 'borrar']);
+
+

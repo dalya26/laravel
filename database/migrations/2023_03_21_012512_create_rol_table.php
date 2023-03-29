@@ -13,17 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('profesor', function (Blueprint $table) {
+        Schema::create('rol', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('apetpat');
-            $table->string('apetmat');
-            $table->string('matricula');
-            $table->string('edad');
-            $table->string('sexo');
-            $table->string('cedula');
-            $table->string('asignatura');
-            $table->string('habilidades');
+            $table->string('roll');
             $table->timestamps();
         });
     }
@@ -35,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profesor');
+        Schema::dropIfExists('rol');
     }
 };
