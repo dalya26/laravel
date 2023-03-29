@@ -47,6 +47,8 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.plista.ver'])->syncRoles([$rol1, $rol2]);
         Permission::create(['name' => 'admin.plista.guardar'])->syncRoles([$rol1]);
         Permission::create(['name' => 'admin.plista.borrar'])->syncRoles([$rol1]);
+        
+        Permission::create(['name' => 'admin.rol.combo'])->syncRoles([$rol1]);
 
         //$role1->permissions()->attach(1,2,3);
 

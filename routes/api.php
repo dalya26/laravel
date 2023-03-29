@@ -6,11 +6,10 @@ use App\Http\Controllers\alumnoController;
 use App\Http\Controllers\grupoController;
 use App\Http\Controllers\materiaController;
 use App\Http\Controllers\profesorController;
-use App\Http\Controllers\rolController;
+use App\Http\Controllers\rolesController;
 use App\Http\Controllers\usersController;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Admin\UserController;
-
+use App\Http\Controllers\Auth\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -53,8 +52,8 @@ Route::post('/grupo', [grupoController::class, 'guardar'])->name('admin.grupo');
 Route::post('/grupo/borrar', [grupoController::class, 'borrar'])->name('admin.grupo');
 Route::get('/grupo/combo', [grupoController::class, 'combo'])->name('admin.grupo');
 
-Route::post('login', function (Request $request) {
-    if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+/**Route::post('login', function (Request $request) {
+    if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'rol' => $request->rol, 'id_rol' => $request->id_rol])) {
         $user = Auth::user();
         $arr = array('acceso' => "Ok", 'error' => "");
         return json_encode($arr);
@@ -62,10 +61,37 @@ Route::post('login', function (Request $request) {
         $arr = array('acceso' => "", 'error' => "No existe el usuario o contraseña");
         return json_encode($arr);
     }
-});
+});*/
 
-Route::post('/registeruser', [usersController::class, 'registeruser'])->name('admin.users');
+Route::post('login', function (Request $request) {
+    if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'rol' => "Admin"])) {
+        $user = Auth::user()->id;
+        $arr = array('userid' => $user,'acceso'=> "Admin" ,'error' => "");
+        return json_encode($arr);
+
+    }if(Auth::attempt(['email' => $request->email, 'password' => $request->password, 'rol' => "Student"])) {
+        $user = Auth::user()->id;
+        $arr = array('userid' => $user,'acceso'=> "Student" ,'error' => "");
+        return json_encode($arr);
+
+    } if(Auth::attempt(['email' => $request->email, 'password' => $request->password, 'rol' => "Teacher"])) {
+        $user = Auth::user()->id;
+        $arr = array('userid' => $user,'acceso'=> "Teacher" ,'error' => "");
+        return json_encode($arr);
+    }
+    else {
+        $arr = array('acceso' => "", 'error' => "No existe el usuario o contraseña");
+        return json_encode($arr);
+    }
+})->name('admin.users');
 Route::get('/user', [usersController::class, 'lista'])->name('admin.users');
 Route::get('/users', [usersController::class, 'users'])->name('admin.users');
 Route::post('/user/borrar', [usersController::class, 'borrar'])->name('admin.users');
+/**Route::post('/registeruser', [usersController::class, 'registeruser'])->name('admin.users');
+Route::get('/user', [usersController::class, 'lista'])->name('admin.users');
+Route::get('/users', [usersController::class, 'users'])->name('admin.users');
+Route::post('/user/borrar', [usersController::class, 'borrar'])->name('admin.users');*/
 
+Route::get('/rol', [rolesController::class, 'lista'])->name('admin.rol');
+Route::get('/role', [rolesController::class, 'roles'])->name('admin.rol');
+Route::get('/rol/combo', [rolesController::class, 'combo'])->name('admin.rol');
