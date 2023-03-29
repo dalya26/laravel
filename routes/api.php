@@ -7,7 +7,10 @@ use App\Http\Controllers\grupoController;
 use App\Http\Controllers\materiaController;
 use App\Http\Controllers\profesorController;
 use App\Http\Controllers\rolesController;
+use App\Http\Controllers\paselista_controller;
+use App\Http\Controllers\rolController;
 use App\Http\Controllers\usersController;
+
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\RegisterController;
 /*
@@ -83,6 +86,7 @@ Route::post('login', function (Request $request) {
         $arr = array('acceso' => "", 'error' => "No existe el usuario o contraseña");
         return json_encode($arr);
     }
+
 })->name('admin.users');
 Route::get('/user', [usersController::class, 'lista'])->name('admin.users');
 Route::get('/users', [usersController::class, 'users'])->name('admin.users');
@@ -95,3 +99,17 @@ Route::post('/user/borrar', [usersController::class, 'borrar'])->name('admin.use
 Route::get('/rol', [rolesController::class, 'lista'])->name('admin.rol');
 Route::get('/role', [rolesController::class, 'roles'])->name('admin.rol');
 Route::get('/rol/combo', [rolesController::class, 'combo'])->name('admin.rol');
+
+});
+
+
+Route::post('/paselista', [paselista_controller::class, 'paselista']);
+Route::post('/guardarpaselista', [paselista_controller::class, 'guardar']);
+
+Route::post('/registeruser', [usersController::class, 'registeruser']);
+Route::get('/user', [usersController::class, 'lista']);
+Route::get('/users', [usersController::class, 'users']);
+//Route::post('/login', [usersController::class, 'login']);
+Route::post('/user/borrar', [usersController::class, 'borrar']);
+
+
